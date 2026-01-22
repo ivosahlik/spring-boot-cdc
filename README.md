@@ -20,3 +20,8 @@ https://www.wedos.com/
 -Dserver.port=8182
 -Dkafka-consumer-config.concurrency-level=1
 -Dspring.sql.init.mode=never
+
+
+## JMeter
+
+brew install jmeter

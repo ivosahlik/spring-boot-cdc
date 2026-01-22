@@ -3,7 +3,8 @@
     "allow": [
       "Bash(mvn clean compile:*)",
       "Bash(java -version:*)",
-      "Bash(tree -d -L 2:*)"
+      "Bash(tree -d -L 2:*)",
+      "Bash(git check-ignore:*)"
     ]
   }
 }

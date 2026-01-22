@@ -1,8 +1,9 @@
 HELP.md
+
+### Maven ###
+**/target/
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -25,9 +26,10 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Gradle ###
+**/build/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
@@ -55,3 +57,8 @@ load-test-results.txt
 !**/src/main/resources/**/*.png
 !**/src/main/resources/**/*.jpg
 !**/src/main/resources/**/*.jpeg
+
+### Docker ###
+.env.local
+.env.override
+**/volumes/
