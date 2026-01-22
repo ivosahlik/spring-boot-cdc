@@ -115,10 +115,11 @@ public class PaymentRequestHelper {
                                   List<CreditHistory> creditHistories,
                                   List<String> failureMessages) {
         paymentRepository.save(payment);
-        if (failureMessages.isEmpty()) {
-            creditEntryRepository.save(creditEntry);
-            creditHistoryRepository.save(creditHistories.get(creditHistories.size() - 1));
+        if (!failureMessages.isEmpty()) {
+            return;
         }
+        creditEntryRepository.save(creditEntry);
+        creditHistoryRepository.save(creditHistories.get(creditHistories.size() - 1));
     }
 
     private boolean isOutboxMessageProcessedForPayment(PaymentRequest paymentRequest,
