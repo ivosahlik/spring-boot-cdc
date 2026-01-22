@@ -25,3 +25,7 @@ https://www.wedos.com/
 ## JMeter
 
 brew install jmeter
+
+## Debezium 
+
+https://debezium.io/documentation/reference/3.3/configuration/avro.html

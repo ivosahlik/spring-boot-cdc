@@ -4,7 +4,14 @@
       "Bash(mvn clean compile:*)",
       "Bash(java -version:*)",
       "Bash(tree -d -L 2:*)",
-      "Bash(git check-ignore:*)"
+      "Bash(git check-ignore:*)",
+      "Bash(mvn clean install:*)",
+      "Bash(mvn test:*)",
+      "Bash(git rm:*)",
+      "Bash(while read dir)",
+      "Bash(do git rm -r --cached --ignore-unmatch \"$dir\")",
+      "Bash(done)",
+      "Bash(git add:*)"
     ]
   }
 }

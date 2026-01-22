@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: never
+
+  kafka:
+    bootstrap-servers: localhost:19092
+
+# Disable Kafka auto-startup for tests
+kafka-consumer-config:
+  auto-startup: false
+
+logging:
+  level:
+    cz.ivosahlik.ordering.system: INFO
+    org.testcontainers: INFO
+    com.github.dockerjava: WARN

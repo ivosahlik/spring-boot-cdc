@@ -4,6 +4,24 @@ HELP.md
 **/target/
 target/
 !.mvn/wrapper/maven-wrapper.jar
+*.jar
+*.war
+*.ear
+*.class
+*.nar
+
+# Maven build artifacts
+**/maven-archiver/
+**/maven-status/
+**/surefire-reports/
+**/failsafe-reports/
+**/test-classes/
+**/classes/
+
+# Explicitly ignore all JAR files in target directories
+**/target/**/*.jar
+**/target/**/*.war
+**/target/**/*.ear
 
 ### STS ###
 .apt_generated

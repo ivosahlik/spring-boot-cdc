@@ -4,8 +4,8 @@ CREATE SCHEMA "order";
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-DROP TYPE IF EXISTS order_status;
-CREATE TYPE order_status AS ENUM ('PENDING', 'PAID', 'APPROVED', 'CANCELLED', 'CANCELLING');
+DROP TYPE IF EXISTS "order".order_status CASCADE;
+CREATE TYPE "order".order_status AS ENUM ('PENDING', 'PAID', 'APPROVED', 'CANCELLED', 'CANCELLING');
 
 DROP TABLE IF EXISTS "order".orders CASCADE;
 
@@ -16,7 +16,7 @@ CREATE TABLE "order".orders
     restaurant_id uuid NOT NULL,
     tracking_id uuid NOT NULL,
     price numeric(10,2) NOT NULL,
-    order_status order_status NOT NULL,
+    order_status "order".order_status NOT NULL,
     failure_messages character varying COLLATE pg_catalog."default",
     CONSTRAINT orders_pkey PRIMARY KEY (id)
 );
@@ -60,11 +60,11 @@ ALTER TABLE "order".order_address
     ON DELETE CASCADE
     NOT VALID;
 
-DROP TYPE IF EXISTS saga_status;
-CREATE TYPE saga_status AS ENUM ('STARTED', 'FAILED', 'SUCCEEDED', 'PROCESSING', 'COMPENSATING', 'COMPENSATED');
+DROP TYPE IF EXISTS "order".saga_status CASCADE;
+CREATE TYPE "order".saga_status AS ENUM ('STARTED', 'FAILED', 'SUCCEEDED', 'PROCESSING', 'COMPENSATING', 'COMPENSATED');
 
-DROP TYPE IF EXISTS outbox_status;
-CREATE TYPE outbox_status AS ENUM ('STARTED', 'COMPLETED', 'FAILED');
+DROP TYPE IF EXISTS "order".outbox_status CASCADE;
+CREATE TYPE "order".outbox_status AS ENUM ('STARTED', 'COMPLETED', 'FAILED');
 
 DROP TABLE IF EXISTS "order".payment_outbox CASCADE;
 
@@ -76,9 +76,9 @@ CREATE TABLE "order".payment_outbox
     processed_at TIMESTAMP WITH TIME ZONE,
     type character varying COLLATE pg_catalog."default" NOT NULL,
     payload jsonb NOT NULL,
-    outbox_status outbox_status NOT NULL,
-    saga_status saga_status NOT NULL,
-    order_status order_status NOT NULL,
+    outbox_status "order".outbox_status NOT NULL,
+    saga_status "order".saga_status NOT NULL,
+    order_status "order".order_status NOT NULL,
     version integer NOT NULL,
     CONSTRAINT payment_outbox_pkey PRIMARY KEY (id)
 );
@@ -101,9 +101,9 @@ CREATE TABLE "order".restaurant_approval_outbox
     processed_at TIMESTAMP WITH TIME ZONE,
     type character varying COLLATE pg_catalog."default" NOT NULL,
     payload jsonb NOT NULL,
-    outbox_status outbox_status NOT NULL,
-    saga_status saga_status NOT NULL,
-    order_status order_status NOT NULL,
+    outbox_status "order".outbox_status NOT NULL,
+    saga_status "order".saga_status NOT NULL,
+    order_status "order".order_status NOT NULL,
     version integer NOT NULL,
     CONSTRAINT restaurant_approval_outbox_pkey PRIMARY KEY (id)
 );
