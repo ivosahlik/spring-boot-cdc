@@ -7,17 +7,13 @@ import cz.ivosahlik.ordering.system.payment.service.dataaccess.outbox.entity.Ord
 import cz.ivosahlik.ordering.system.payment.service.dataaccess.outbox.repository.OrderOutboxJpaRepository;
 import cz.ivosahlik.ordering.system.payment.service.domain.dto.PaymentRequest;
 import cz.ivosahlik.ordering.system.payment.service.domain.ports.input.message.listener.PaymentRequestMessageListener;
+import cz.ivosahlik.ordering.system.testcontainers.PaymentServicePostgresContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -39,24 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
                 "kafka-consumer-config.auto-startup=false"
         }
 )
-@Testcontainers
-public class PaymentRequestMessageListenerTest {
-
-    @Container
-    private static final PostgreSQLContainer<?> postgresqlContainer = new PostgreSQLContainer<>("postgres:15-alpine")
-            .withDatabaseName("postgres")
-            .withUsername("test")
-            .withPassword("test")
-            .withInitScript("init-schema.sql");
-
-    @DynamicPropertySource
-    static void setProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", () -> postgresqlContainer.getJdbcUrl() + "&currentSchema=payment&stringtype=unspecified");
-        registry.add("spring.datasource.username", postgresqlContainer::getUsername);
-        registry.add("spring.datasource.password", postgresqlContainer::getPassword);
-        registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
-        registry.add("spring.jpa.properties.hibernate.dialect", () -> "org.hibernate.dialect.PostgreSQLDialect");
-    }
+public class PaymentRequestMessageListenerTest implements PaymentServicePostgresContainer {
 
     @Autowired
     private PaymentRequestMessageListener paymentRequestMessageListener;

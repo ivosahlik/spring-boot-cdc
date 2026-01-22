@@ -49,6 +49,12 @@
             </dependency>
             <dependency>
                 <groupId>cz.ivosahlik.ordering.system</groupId>
+                <artifactId>testcontainers</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>cz.ivosahlik.ordering.system</groupId>
                 <artifactId>order-domain-core</artifactId>
                 <version>${project.version}</version>
             </dependency>

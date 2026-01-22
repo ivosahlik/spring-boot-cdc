@@ -6,17 +6,13 @@ import cz.ivosahlik.ordering.system.order.service.dataaccess.outbox.payment.repo
 import cz.ivosahlik.ordering.system.order.service.domain.dto.message.PaymentResponse;
 import cz.ivosahlik.ordering.system.saga.SagaStatus;
 import cz.ivosahlik.ordering.system.domain.valueobject.PaymentStatus;
+import cz.ivosahlik.ordering.system.testcontainers.OrderServicePostgresContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.jdbc.Sql;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -40,26 +36,9 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TES
                 "kafka-consumer-config.auto-startup=false"
         }
 )
-@Testcontainers
 @Sql(value = {"classpath:sql/OrderPaymentSagaTestSetUp.sql"})
 @Sql(value = {"classpath:sql/OrderPaymentSagaTestCleanUp.sql"}, executionPhase = AFTER_TEST_METHOD)
-public class OrderPaymentSagaTest {
-
-    @Container
-    private static final PostgreSQLContainer<?> postgresqlContainer = new PostgreSQLContainer<>("postgres:15-alpine")
-            .withDatabaseName("postgres")
-            .withUsername("test")
-            .withPassword("test")
-            .withInitScript("init-schema.sql");
-
-    @DynamicPropertySource
-    static void setProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", () -> postgresqlContainer.getJdbcUrl() + "&currentSchema=order&stringtype=unspecified");
-        registry.add("spring.datasource.username", postgresqlContainer::getUsername);
-        registry.add("spring.datasource.password", postgresqlContainer::getPassword);
-        registry.add("spring.datasource.driver-class-name", () -> "org.postgresql.Driver");
-        registry.add("spring.jpa.properties.hibernate.dialect", () -> "org.hibernate.dialect.PostgreSQLDialect");
-    }
+public class OrderPaymentSagaTest implements OrderServicePostgresContainer {
 
     @Autowired
     private OrderPaymentSaga orderPaymentSaga;
