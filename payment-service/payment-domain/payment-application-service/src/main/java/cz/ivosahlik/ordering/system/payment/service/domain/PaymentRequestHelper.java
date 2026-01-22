@@ -16,6 +16,7 @@ import cz.ivosahlik.ordering.system.payment.service.domain.outbox.scheduler.Orde
 import cz.ivosahlik.ordering.system.payment.service.domain.ports.output.repository.CreditEntryRepository;
 import cz.ivosahlik.ordering.system.payment.service.domain.ports.output.repository.CreditHistoryRepository;
 import cz.ivosahlik.ordering.system.payment.service.domain.ports.output.repository.PaymentRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class PaymentRequestHelper {
 
@@ -36,25 +38,10 @@ public class PaymentRequestHelper {
     private final CreditHistoryRepository creditHistoryRepository;
     private final OrderOutboxHelper orderOutboxHelper;
 
-    public PaymentRequestHelper(PaymentDomainService paymentDomainService,
-                                PaymentDataMapper paymentDataMapper,
-                                PaymentRepository paymentRepository,
-                                CreditEntryRepository creditEntryRepository,
-                                CreditHistoryRepository creditHistoryRepository,
-                                OrderOutboxHelper orderOutboxHelper) {
-        this.paymentDomainService = paymentDomainService;
-        this.paymentDataMapper = paymentDataMapper;
-        this.paymentRepository = paymentRepository;
-        this.creditEntryRepository = creditEntryRepository;
-        this.creditHistoryRepository = creditHistoryRepository;
-        this.orderOutboxHelper = orderOutboxHelper;
-    }
-
     @Transactional
     public void persistPayment(PaymentRequest paymentRequest) {
         if (isOutboxMessageProcessedForPayment(paymentRequest, PaymentStatus.COMPLETED)) {
-            log.info("An outbox message with saga id: {} is already saved to database!",
-                    paymentRequest.getSagaId());
+            log.info("An outbox message with saga id: {} is already saved to database!", paymentRequest.getSagaId());
             return;
         }
 
@@ -76,8 +63,7 @@ public class PaymentRequestHelper {
     @Transactional
     public void persistCancelPayment(PaymentRequest paymentRequest) {
         if (isOutboxMessageProcessedForPayment(paymentRequest, PaymentStatus.CANCELLED)) {
-            log.info("An outbox message with saga id: {} is already saved to database!",
-                    paymentRequest.getSagaId());
+            log.info("An outbox message with saga id: {} is already saved to database!", paymentRequest.getSagaId());
             return;
         }
 
@@ -141,10 +127,7 @@ public class PaymentRequestHelper {
                 orderOutboxHelper.getCompletedOrderOutboxMessageBySagaIdAndPaymentStatus(
                         UUID.fromString(paymentRequest.getSagaId()),
                         paymentStatus);
-        if (orderOutboxMessage.isPresent()) {
-            return true;
-        }
-        return false;
+        return orderOutboxMessage.isPresent();
     }
 
 }
