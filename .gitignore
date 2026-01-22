@@ -14,7 +14,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -31,3 +31,27 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### macOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Logs ###
+*.log
+logs/
+
+### Claude Code ###
+.claude/
+
+### Test Results ###
+*-test-results.txt
+load-test-results.txt
+
+### Screenshots ###
+*.png
+*.jpg
+*.jpeg
+!**/src/main/resources/**/*.png
+!**/src/main/resources/**/*.jpg
+!**/src/main/resources/**/*.jpeg
