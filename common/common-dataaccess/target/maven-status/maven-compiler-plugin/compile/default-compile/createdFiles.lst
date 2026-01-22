@@ -1,0 +1,6 @@
+cz/ivosahlik/ordering/system/dataaccess/restaurant/repository/RestaurantJpaRepository.class
+cz/ivosahlik/ordering/system/dataaccess/restaurant/entity/RestaurantEntity$RestaurantEntityBuilder.class
+cz/ivosahlik/ordering/system/dataaccess/restaurant/entity/RestaurantEntity.class
+cz/ivosahlik/ordering/system/dataaccess/restaurant/entity/RestaurantEntityId.class
+cz/ivosahlik/ordering/system/dataaccess/restaurant/entity/RestaurantEntityId$RestaurantEntityIdBuilder.class
+cz/ivosahlik/ordering/system/dataaccess/restaurant/exception/RestaurantDataAccessException.class
