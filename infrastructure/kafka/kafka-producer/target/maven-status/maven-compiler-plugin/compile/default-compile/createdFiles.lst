@@ -1,5 +1,0 @@
-cz/ivosahlik/ordering/system/kafka/producer/service/KafkaProducer.class
-cz/ivosahlik/ordering/system/kafka/producer/KafkaProducerConfig.class
-cz/ivosahlik/ordering/system/kafka/producer/service/impl/KafkaProducerImpl.class
-cz/ivosahlik/ordering/system/kafka/producer/KafkaMessageHelper.class
-cz/ivosahlik/ordering/system/kafka/producer/exception/KafkaProducerException.class

@@ -1,5 +1,0 @@
-cz/ivosahlik/ordering/system/customer/service/domain/event/CustomerCreatedEvent.class
-cz/ivosahlik/ordering/system/customer/service/domain/CustomerDomainService.class
-cz/ivosahlik/ordering/system/customer/service/domain/entity/Customer.class
-cz/ivosahlik/ordering/system/customer/service/domain/exception/CustomerDomainException.class
-cz/ivosahlik/ordering/system/customer/service/domain/CustomerDomainServiceImpl.class

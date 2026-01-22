@@ -11,7 +11,8 @@
       "Bash(while read dir)",
       "Bash(do git rm -r --cached --ignore-unmatch \"$dir\")",
       "Bash(done)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(mvn clean test:*)"
     ]
   }
 }
